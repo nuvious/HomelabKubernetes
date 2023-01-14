@@ -1,0 +1,15 @@
+---
+- name: Install microk8s with snap
+  become: true
+  become_user: root
+  community.general.snap:
+    name:
+      - microk8s
+    classic: true
+- name: Add user to microk8s group
+  become: true
+  become_user: root
+  ansible.builtin.user:
+    name: "{{ primary_user_for_group }}"
+    groups: microk8s
+    append: true
