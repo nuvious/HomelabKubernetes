@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: Import common variables
+      include_vars: group_vars/common.yml
+  roles:
+    - role: roles/rpikube
+      vars:
+        primary_user_for_group: "{{ primary_user }}"
+
+- hosts: control
+  become: true
+  roles:
+    - role: roles/rpikube-control
+
+- hosts: worker
+  become: true
+  roles:
+    - role: roles/rpikube-worker
