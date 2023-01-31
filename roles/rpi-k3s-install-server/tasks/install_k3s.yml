@@ -1,0 +1,11 @@
+---
+- name: Check if k3s is installed
+  stat:
+    path: /usr/local/bin/k3s
+  register: k3s_bin_location
+- name: Install k3s server
+  become: true
+  become_user: root
+  ansible.builtin.shell:
+    cmd: "curl -sfL https://get.k3s.io | sh -"
+  when: not k3s_bin_location.stat.exists

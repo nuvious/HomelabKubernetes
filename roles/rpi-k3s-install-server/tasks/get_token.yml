@@ -1,0 +1,9 @@
+- name: Getting join command from the master node…
+  become: true
+  become_user: root
+  shell: cat /var/lib/rancher/k3s/server/node-token
+  register: join_token
+- name: Setting join command…
+  set_fact:
+    join_command: "curl -sfL https://get.k3s.io | K3S_URL=https://{{ ansible_ssh_host }}:6443 K3S_TOKEN={{ join_token.stdout_lines[0] }} sh -"
+    cachable: true

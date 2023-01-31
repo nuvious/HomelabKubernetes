@@ -1,0 +1,12 @@
+---
+- name: Get admin token
+  become: yes
+  become_user: root
+  shell: "cat /etc/rancher/k3s/k3s.yaml"
+  register: k3s_config
+- name: Output configuration
+  ansible.builtin.debug:
+    msg: "{{ k3s_config.stdout | regex_replace('(127.0.0.1)', ansible_ssh_host) }}"
+  register: k3s_config
+- name: Write variable to file
+  local_action: copy content="{{ k3s_config.msg }}" dest=~/k3s-config

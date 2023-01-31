@@ -1,0 +1,21 @@
+- name: Check if k3s is installed
+  stat:
+    path: /usr/local/bin/k3s
+  register: k3s_bin_location
+- name: Stop k3s
+  become: yes
+  become_user: root
+  ansible.builtin.shell:
+    cmd: /usr/local/bin/k3s-killall.sh
+  when: k3s_bin_location.stat.exists
+- name: Remove k3s (worker)
+  become: yes
+  become_user: root
+  ansible.builtin.shell:
+    cmd: /usr/local/bin/k3s-agent-uninstall.sh
+  when: k3s_bin_location.stat.exists
+- name: Remove linux-modules-extra-raspi
+  ansible.builtin.apt:
+    name: linux-modules-extra-raspi
+    state: absent
+  when: ansible_distribution == 'Ubuntu'

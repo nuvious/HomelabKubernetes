@@ -5,16 +5,16 @@
     - name: Import common variables
       include_vars: group_vars/common.yml
   roles:
-    - role: roles/rpikube
+    - role: roles/rpi-microk8s-install
       vars:
         primary_user_for_group: "{{ primary_user }}"
 
 - hosts: control
   become: true
   roles:
-    - role: roles/rpikube-control
+    - role: roles/rpi-microk8s-control
 
 - hosts: worker
   become: true
   roles:
-    - role: roles/rpikube-worker
+    - role: roles/rpi-microk8s-worker

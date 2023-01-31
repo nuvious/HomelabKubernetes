@@ -1,0 +1,9 @@
+---
+- name: Remove microk8s
+  community.general.snap:
+    name: microk8s
+    state: absent
+- name: Delete microk8s group
+  ansible.builtin.group:
+    name: microk8s
+    state: absent

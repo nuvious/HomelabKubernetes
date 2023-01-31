@@ -1,0 +1,10 @@
+---
+- hosts: server
+  become: true
+  roles:
+    - role: roles/rpi-k3s-remove-server
+
+- hosts: agent
+  become: true
+  roles:
+    - role: roles/rpi-k3s-remove-agent
