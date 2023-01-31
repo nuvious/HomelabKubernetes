@@ -1,0 +1,9 @@
+- name: Getting join command from the master node…
+  become: true
+  become_user: root
+  shell: /snap/bin/microk8s.add-node -l 3600
+  register: join_cmd
+- name: Setting join command…
+  set_fact:
+    join_command: "/snap/bin/{{ join_cmd.stdout_lines[1] }}"
+    cachable: true
