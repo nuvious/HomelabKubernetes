@@ -2,19 +2,19 @@
 - hosts: all
   become: true
   roles:
-    - role: roles/rpi-k3s-dependencies
+    - role: roles/k3s-dependencies
 
 - hosts: server
   become: true
   roles:
-    - role: roles/rpi-k3s-install-server
+    - role: roles/k3s-install-server
 
 - hosts: agent
   become: true
   roles:
-    - role: roles/rpi-k3s-install-agent
+    - role: roles/k3s-install-agent
 
 - hosts: server
   become: true
   roles:
-    - role: roles/rpi-k3s-gen-kube-config
+    - role: roles/k3s-gen-kube-config

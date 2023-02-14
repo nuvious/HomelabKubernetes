@@ -1,0 +1,11 @@
+---
+- name: Install snapd
+  ansible.builtin.apt:
+    name: snapd
+    state: present
+- name: Install snap core
+  become: true
+  become_user: root
+  community.general.snap:
+    name:
+      - core
