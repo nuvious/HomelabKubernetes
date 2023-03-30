@@ -6,10 +6,10 @@
   become: true
   become_user: root
   shell: /snap/bin/microk8s enable ha-cluster
-# - name: Enable metrics-server
-#   become: true
-#   become_user: root
-#   shell: /snap/bin/microk8s enable metrics-server
+- name: Enable metrics-server
+  become: true
+  become_user: root
+  shell: /snap/bin/microk8s enable metrics-server
 # - name: Enable dashboard
 #   become: true
 #   become_user: root

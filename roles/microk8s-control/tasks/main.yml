@@ -7,3 +7,6 @@
   set_fact:
     join_command: "/snap/bin/{{ join_cmd.stdout_lines[1] }}"
     cachable: true
+- name: Pause for 1 minute to finish setting up control plane node
+  ansible.builtin.pause:
+    minutes: 1

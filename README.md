@@ -135,6 +135,20 @@ kube01.bearden.local   Ready    <none>   3m3s    v1.26.0
 ansible-playbook -i hosts/example.yml k8s-remove.yml
 ```
 
+## Other Useful Playbooks Included
+
+### Update Playbook
+
+Just a simple playbook to update debian based distributions. Example usage:
+
+```bash
+# Will execute against 'all' in inventory
+ansible-playbook -i hosts/hosts_file.yml site_update.yml
+
+# Will execute against a specific group in inventory
+ansible-playbook -i hosts/hosts_file.yml --extra-vars "hosts=creality" site_update.yml
+```
+
 ## Misc Notes for Contributors
 
 ### File Structure
@@ -142,5 +156,3 @@ ansible-playbook -i hosts/example.yml k8s-remove.yml
 File structure derrived from the recommended
 [Directory Layout](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html#directory-layout)
 documentation from [Ansible Best Practices](https://docs.ansible.com/ansible/2.8/user_guide/playbooks_best_practices.html#best-practices).
-
-
