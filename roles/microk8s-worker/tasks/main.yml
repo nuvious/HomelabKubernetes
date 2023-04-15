@@ -1,0 +1,6 @@
+- name: Joining to the cluster
+  become: yes
+  shell: "{{ hostvars[groups['control'][0]]['join_command'] }}"
+- name: Pause for 1 minute to allow cluster join processes to spin down
+  ansible.builtin.pause:
+    minutes: 1
