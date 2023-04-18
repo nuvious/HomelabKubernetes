@@ -7,7 +7,7 @@
     - ansible_distribution == 'Ubuntu'
     - ansible_architecture == 'aarch64'
     - ansible_kernel is match(".*raspi$")
-- name: Install linux-modules-extra-raspi
+- name: Install curl
   ansible.builtin.apt:
     name: curl
     state: present

@@ -1,3 +1,4 @@
 ---
 - include_tasks: modify_cmdline_params.yml
-- include_tasks: install_microk8s_with_snap.yml
+  when:
+    - ansible_architecture == 'aarch64'

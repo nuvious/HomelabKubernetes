@@ -2,5 +2,5 @@
 - hosts: all
   become: true
   roles:
-    - role: roles/rpi-microk8s-remove
+    - role: roles/microk8s-remove
 

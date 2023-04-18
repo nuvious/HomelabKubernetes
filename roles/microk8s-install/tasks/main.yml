@@ -1,0 +1,2 @@
+---
+- include_tasks: install_microk8s_with_snap.yml
