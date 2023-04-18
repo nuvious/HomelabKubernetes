@@ -4,7 +4,7 @@
   roles:
     - role: roles/k3s-dependencies
     - role: roles/kube-common
-  
+
 - hosts: server
   become: true
   roles:
