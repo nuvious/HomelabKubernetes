@@ -1,3 +1,7 @@
 ---
 - name: Joining to the cluster
   shell: "{{ hostvars[groups['control'][0]]['join_command'] }}"
+  retries: 10
+  delay: 60
+  register: result
+  until: "result is not failed"
