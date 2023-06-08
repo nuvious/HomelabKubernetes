@@ -6,5 +6,9 @@
 - name: Install k3s and join server
   become: true
   become_user: root
+  retries: 10
+  delay: 60
+  register: result
+  until: "result is not failed"
   shell: "{{ hostvars[groups['server'][0]]['join_command'] }}"
   when: not k3s_bin_location.stat.exists

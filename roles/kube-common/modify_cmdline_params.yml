@@ -1,11 +1,14 @@
 ---
-- name: Ansible find files in subdirectory examples
+- name: Find cmdline.txt
   find:
     paths: /boot
     patterns: 'cmdline.txt'
     recurse: yes
   register: find_result
 - name: Modify cmdline.txt
+  when:
+    - find_result is defined
+    - find_result.files|length > 0
   become: yes
   become_user: root
   lineinfile:

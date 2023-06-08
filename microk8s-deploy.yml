@@ -5,6 +5,7 @@
     - name: Import common variables
       include_vars: group_vars/common.yml
   roles:
+    - role: roles/kube-common 
     - role: roles/microk8s-dependencies
     - role: roles/microk8s-install
       vars:

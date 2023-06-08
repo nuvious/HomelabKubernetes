@@ -1,8 +1,4 @@
 ---
-- include_tasks: modify_cmdline_params.yml
-  when:
-    - ansible_architecture == 'aarch64'
-
 - include_tasks: install_k3s.yml
 
 - include_tasks: get_token.yml

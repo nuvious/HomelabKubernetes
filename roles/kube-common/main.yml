@@ -1,0 +1,4 @@
+---
+- include_tasks: modify_cmdline_params.yml
+  when:
+    - ansible_architecture == 'aarch64'

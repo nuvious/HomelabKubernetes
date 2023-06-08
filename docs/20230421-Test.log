@@ -1,0 +1,1091 @@
++ set -e
++ removal_playbooks=("microk8s-remove.yml" "k3s-remove.yml")
++ config_copy=("/root/k8s-config" "/root/k3s-config")
++ post_install_delays=("5m" "5m" "15m")
++ deploy_playbooks=("microk8s-deploy.yml" "k3s-deploy.yml")
++ inventory_files=("hosts/x86-kube.yml" "hosts/rpi-kube.yml" "hosts/rpi-kube-tpi2.yml")
++ for playbook in ${removal_playbooks[@]}
++ for inventory in ${inventory_files[@]}
++ ansible-playbook -i hosts/x86-kube.yml microk8s-remove.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube01]
+ok: [kube02]
+ok: [kube00]
+
+TASK [roles/microk8s-remove : Remove microk8s] *********************************
+ok: [kube01]
+ok: [kube00]
+ok: [kube02]
+
+TASK [roles/microk8s-remove : Delete microk8s group] ***************************
+ok: [kube02]
+ok: [kube01]
+ok: [kube00]
+
+PLAY RECAP *********************************************************************
+kube00                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+kube01                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+kube02                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for inventory in ${inventory_files[@]}
++ ansible-playbook -i hosts/rpi-kube.yml microk8s-remove.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube01]
+ok: [rpikube02]
+ok: [rpikube00]
+
+TASK [roles/microk8s-remove : Remove microk8s] *********************************
+ok: [rpikube00]
+ok: [rpikube02]
+ok: [rpikube01]
+
+TASK [roles/microk8s-remove : Delete microk8s group] ***************************
+ok: [rpikube01]
+ok: [rpikube00]
+ok: [rpikube02]
+
+PLAY RECAP *********************************************************************
+rpikube00                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube01                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube02                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for inventory in ${inventory_files[@]}
++ ansible-playbook -i hosts/rpi-kube-tpi2.yml microk8s-remove.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[DEPRECATION WARNING]: Distribution debian 11 on host tpi20 should use 
+/usr/bin/python3, but is using /usr/bin/python for backward compatibility with 
+prior Ansible releases. A future Ansible release will default to using the 
+discovered platform python for this host. See https://docs.ansible.com/ansible/
+2.10/reference_appendices/interpreter_discovery.html for more information. This
+ feature will be removed in version 2.12. Deprecation warnings can be disabled 
+by setting deprecation_warnings=False in ansible.cfg.
+ok: [tpi20]
+ok: [tpi22]
+ok: [tpi21]
+ok: [tpi23]
+
+TASK [roles/microk8s-remove : Remove microk8s] *********************************
+changed: [tpi20]
+changed: [tpi21]
+changed: [tpi23]
+changed: [tpi22]
+
+TASK [roles/microk8s-remove : Delete microk8s group] ***************************
+changed: [tpi20]
+changed: [tpi22]
+changed: [tpi23]
+changed: [tpi21]
+
+PLAY RECAP *********************************************************************
+tpi20                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+tpi21                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+tpi22                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+tpi23                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for playbook in ${removal_playbooks[@]}
++ for inventory in ${inventory_files[@]}
++ ansible-playbook -i hosts/x86-kube.yml microk8s-remove.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube01]
+ok: [kube00]
+ok: [kube02]
+
+TASK [roles/microk8s-remove : Remove microk8s] *********************************
+ok: [kube01]
+ok: [kube02]
+ok: [kube00]
+
+TASK [roles/microk8s-remove : Delete microk8s group] ***************************
+ok: [kube02]
+ok: [kube01]
+ok: [kube00]
+
+PLAY RECAP *********************************************************************
+kube00                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+kube01                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+kube02                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for inventory in ${inventory_files[@]}
++ ansible-playbook -i hosts/rpi-kube.yml microk8s-remove.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube01]
+ok: [rpikube00]
+ok: [rpikube02]
+
+TASK [roles/microk8s-remove : Remove microk8s] *********************************
+ok: [rpikube02]
+ok: [rpikube01]
+ok: [rpikube00]
+
+TASK [roles/microk8s-remove : Delete microk8s group] ***************************
+ok: [rpikube00]
+ok: [rpikube01]
+ok: [rpikube02]
+
+PLAY RECAP *********************************************************************
+rpikube00                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube01                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube02                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for inventory in ${inventory_files[@]}
++ ansible-playbook -i hosts/rpi-kube-tpi2.yml microk8s-remove.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[DEPRECATION WARNING]: Distribution debian 11 on host tpi20 should use 
+/usr/bin/python3, but is using /usr/bin/python for backward compatibility with 
+prior Ansible releases. A future Ansible release will default to using the 
+discovered platform python for this host. See https://docs.ansible.com/ansible/
+2.10/reference_appendices/interpreter_discovery.html for more information. This
+ feature will be removed in version 2.12. Deprecation warnings can be disabled 
+by setting deprecation_warnings=False in ansible.cfg.
+ok: [tpi20]
+ok: [tpi22]
+ok: [tpi21]
+ok: [tpi23]
+
+TASK [roles/microk8s-remove : Remove microk8s] *********************************
+ok: [tpi20]
+ok: [tpi23]
+ok: [tpi21]
+ok: [tpi22]
+
+TASK [roles/microk8s-remove : Delete microk8s group] ***************************
+ok: [tpi20]
+ok: [tpi22]
+ok: [tpi21]
+ok: [tpi23]
+
+PLAY RECAP *********************************************************************
+tpi20                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+tpi21                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+tpi22                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+tpi23                      : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for j in {0..2}
++ inventory=hosts/x86-kube.yml
++ post_install_delay=5m
++ for i in {0..1}
++ ansible-playbook -i hosts/x86-kube.yml microk8s-deploy.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube01]
+ok: [kube02]
+ok: [kube00]
+
+TASK [Import common variables] *************************************************
+ok: [kube00]
+ok: [kube01]
+ok: [kube02]
+
+TASK [roles/microk8s-dependencies : Install linux-modules-extra-raspi] *********
+skipping: [kube00]
+skipping: [kube01]
+skipping: [kube02]
+
+TASK [roles/microk8s-dependencies : Install snapd] *****************************
+ok: [kube01]
+ok: [kube02]
+ok: [kube00]
+
+TASK [roles/microk8s-dependencies : Refreshing snap core] **********************
+skipping: [kube00]
+skipping: [kube01]
+skipping: [kube02]
+
+TASK [roles/microk8s-install : Install microk8s with snap] *********************
+changed: [kube00]
+changed: [kube01]
+changed: [kube02]
+
+TASK [roles/microk8s-install : Add user to microk8s group] *********************
+changed: [kube01]
+changed: [kube02]
+changed: [kube00]
+
+PLAY [control] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube00]
+
+TASK [roles/microk8s-control : Getting join command from the master node…] *****
+changed: [kube00]
+
+TASK [roles/microk8s-control : Setting join command…] **************************
+ok: [kube00]
+
+PLAY [worker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube01]
+ok: [kube02]
+
+TASK [roles/microk8s-worker : Joining to the cluster] **************************
+changed: [kube01]
+changed: [kube02]
+
+PLAY [control] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube00]
+
+TASK [roles/microk8s-gen-kube-config : Get admin token] ************************
+changed: [kube00]
+
+TASK [roles/microk8s-gen-kube-config : Output configuration] *******************
+ok: [kube00] => {
+    "msg": "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data:  REDACTED    token: REDACTED"
+}
+
+TASK [roles/microk8s-gen-kube-config : Write variable to file] *****************
+changed: [kube00]
+
+TASK [roles/microk8s-post-install : Enable dns] ********************************
+changed: [kube00]
+
+TASK [roles/microk8s-post-install : Enable ha-cluster] *************************
+changed: [kube00]
+
+TASK [roles/microk8s-post-install : Enable metrics-server] *********************
+changed: [kube00]
+
+PLAY RECAP *********************************************************************
+kube00                     : ok=15   changed=8    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+kube01                     : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+kube02                     : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
++ sudo bash -c 'mv /root/k8s-config  /home/nuvious/.kube/config && chown nuvious:nuvious /home/nuvious/.kube/config'
++ sleep 5m
++ set +e
++ success=1
++ for k in {0..10}
++ kubectl get nodes
+NAME                   STATUS   ROLES    AGE     VERSION
+kube02.local   Ready    <none>   8m41s   v1.26.3
+kube00.local   Ready    <none>   11m     v1.26.3
+kube01.local   Ready    <none>   9m15s   v1.26.3
++ success=0
++ break
++ set -e
++ test 0 -eq 0
++ ansible-playbook -i hosts/x86-kube.yml microk8s-remove.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube00]
+ok: [kube02]
+ok: [kube01]
+
+TASK [roles/microk8s-remove : Remove microk8s] *********************************
+changed: [kube02]
+changed: [kube00]
+changed: [kube01]
+
+TASK [roles/microk8s-remove : Delete microk8s group] ***************************
+changed: [kube00]
+changed: [kube02]
+changed: [kube01]
+
+PLAY RECAP *********************************************************************
+kube00                     : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+kube01                     : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+kube02                     : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for i in {0..1}
++ ansible-playbook -i hosts/x86-kube.yml k3s-deploy.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube01]
+ok: [kube00]
+ok: [kube02]
+
+TASK [roles/k3s-dependencies : Install linux-modules-extra-raspi] **************
+skipping: [kube00]
+skipping: [kube01]
+skipping: [kube02]
+
+TASK [roles/k3s-dependencies : Install curl] ***********************************
+ok: [kube02]
+ok: [kube00]
+ok: [kube01]
+
+PLAY [server] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube00]
+
+TASK [roles/k3s-install-server : include_tasks] ********************************
+included: /home/nuvious/Ansible/roles/k3s-install-server/tasks/install_k3s.yml for kube00
+
+TASK [roles/k3s-install-server : Check if k3s is installed] ********************
+ok: [kube00]
+
+TASK [roles/k3s-install-server : Install k3s server] ***************************
+[WARNING]: Consider using the get_url or uri module rather than running 'curl'.
+If you need to use command because get_url or uri is insufficient you can add
+'warn: false' to this command task or set 'command_warnings=False' in
+ansible.cfg to get rid of this message.
+changed: [kube00]
+
+TASK [roles/k3s-install-server : include_tasks] ********************************
+included: /home/nuvious/Ansible/roles/k3s-install-server/tasks/get_token.yml for kube00
+
+TASK [roles/k3s-install-server : Getting join command from the master node…] ***
+changed: [kube00]
+
+TASK [roles/k3s-install-server : Setting join command…] ************************
+ok: [kube00]
+
+PLAY [agent] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube01]
+ok: [kube02]
+
+TASK [roles/k3s-install-agent : include_tasks] *********************************
+included: /home/nuvious/Ansible/roles/k3s-install-agent/tasks/install_k3s.yml for kube01, kube02
+
+TASK [roles/k3s-install-agent : Check if k3s is installed] *********************
+ok: [kube01]
+ok: [kube02]
+
+TASK [roles/k3s-install-agent : Install k3s and join server] *******************
+changed: [kube02]
+changed: [kube01]
+
+PLAY [server] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube00]
+
+TASK [roles/k3s-gen-kube-config : Get admin token] *****************************
+changed: [kube00]
+
+TASK [roles/k3s-gen-kube-config : Output configuration] ************************
+ok: [kube00] => {
+    "msg": "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data:  REDACTED    client-key-data: REDACTED"
+}
+
+TASK [roles/k3s-gen-kube-config : Write variable to file] **********************
+changed: [kube00]
+
+PLAY RECAP *********************************************************************
+kube00                     : ok=13   changed=4    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+kube01                     : ok=6    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+kube02                     : ok=6    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
++ sudo bash -c 'mv /root/k3s-config  /home/nuvious/.kube/config && chown nuvious:nuvious /home/nuvious/.kube/config'
++ sleep 5m
++ set +e
++ success=1
++ for k in {0..10}
++ kubectl get nodes
+NAME                   STATUS   ROLES                  AGE     VERSION
+kube00.local   Ready    control-plane,master   6m12s   v1.26.3+k3s1
+kube02.local   Ready    <none>                 5m7s    v1.26.3+k3s1
+kube01.local   Ready    <none>                 5m6s    v1.26.3+k3s1
++ success=0
++ break
++ set -e
++ test 0 -eq 0
++ ansible-playbook -i hosts/x86-kube.yml k3s-remove.yml
+
+PLAY [server] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube00]
+
+TASK [roles/k3s-remove-server : Check if k3s is installed] *********************
+ok: [kube00]
+
+TASK [roles/k3s-remove-server : Stop k3s] **************************************
+changed: [kube00]
+
+TASK [roles/k3s-remove-server : Remove k3s (server)] ***************************
+changed: [kube00]
+
+TASK [roles/k3s-remove-server : Remove linux-modules-extra-raspi] **************
+skipping: [kube00]
+
+PLAY [agent] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [kube02]
+ok: [kube01]
+
+TASK [roles/k3s-remove-agent : Check if k3s is installed] **********************
+ok: [kube01]
+ok: [kube02]
+
+TASK [roles/k3s-remove-agent : Stop k3s] ***************************************
+changed: [kube02]
+changed: [kube01]
+
+TASK [roles/k3s-remove-agent : Remove k3s (worker)] ****************************
+changed: [kube01]
+changed: [kube02]
+
+TASK [roles/k3s-remove-agent : Remove linux-modules-extra-raspi] ***************
+skipping: [kube01]
+skipping: [kube02]
+
+PLAY RECAP *********************************************************************
+kube00                     : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+kube01                     : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+kube02                     : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
++ for j in {0..2}
++ inventory=hosts/rpi-kube.yml
++ post_install_delay=5m
++ for i in {0..1}
++ ansible-playbook -i hosts/rpi-kube.yml microk8s-deploy.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube01]
+ok: [rpikube00]
+ok: [rpikube02]
+
+TASK [Import common variables] *************************************************
+ok: [rpikube00]
+ok: [rpikube01]
+ok: [rpikube02]
+
+TASK [roles/microk8s-dependencies : Install linux-modules-extra-raspi] *********
+changed: [rpikube00]
+changed: [rpikube01]
+changed: [rpikube02]
+
+TASK [roles/microk8s-dependencies : Install snapd] *****************************
+ok: [rpikube00]
+ok: [rpikube01]
+ok: [rpikube02]
+
+TASK [roles/microk8s-dependencies : Refreshing snap core] **********************
+skipping: [rpikube00]
+skipping: [rpikube01]
+skipping: [rpikube02]
+
+TASK [roles/microk8s-install : Install microk8s with snap] *********************
+changed: [rpikube01]
+changed: [rpikube02]
+changed: [rpikube00]
+
+TASK [roles/microk8s-install : Add user to microk8s group] *********************
+changed: [rpikube02]
+changed: [rpikube01]
+changed: [rpikube00]
+
+PLAY [control] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube00]
+
+TASK [roles/microk8s-control : Getting join command from the master node…] *****
+changed: [rpikube00]
+
+TASK [roles/microk8s-control : Setting join command…] **************************
+ok: [rpikube00]
+
+PLAY [worker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube02]
+ok: [rpikube01]
+
+TASK [roles/microk8s-worker : Joining to the cluster] **************************
+changed: [rpikube02]
+changed: [rpikube01]
+
+PLAY [control] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube00]
+
+TASK [roles/microk8s-gen-kube-config : Get admin token] ************************
+changed: [rpikube00]
+
+TASK [roles/microk8s-gen-kube-config : Output configuration] *******************
+ok: [rpikube00] => {
+    "msg": "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data:  REDACTED    token: REDACTED"
+}
+
+TASK [roles/microk8s-gen-kube-config : Write variable to file] *****************
+changed: [rpikube00]
+
+TASK [roles/microk8s-post-install : Enable dns] ********************************
+changed: [rpikube00]
+
+TASK [roles/microk8s-post-install : Enable ha-cluster] *************************
+changed: [rpikube00]
+
+TASK [roles/microk8s-post-install : Enable metrics-server] *********************
+changed: [rpikube00]
+
+PLAY RECAP *********************************************************************
+rpikube00                  : ok=16   changed=9    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+rpikube01                  : ok=8    changed=4    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+rpikube02                  : ok=8    changed=4    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+
++ sudo bash -c 'mv /root/k8s-config  /home/nuvious/.kube/config && chown nuvious:nuvious /home/nuvious/.kube/config'
++ sleep 5m
++ set +e
++ success=1
++ for k in {0..10}
++ kubectl get nodes
+NAME        STATUS   ROLES    AGE     VERSION
+rpikube02   Ready    <none>   7m29s   v1.26.3
+rpikube00   Ready    <none>   8m59s   v1.26.3
++ success=0
++ break
++ set -e
++ test 0 -eq 0
++ ansible-playbook -i hosts/rpi-kube.yml microk8s-remove.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube01]
+ok: [rpikube00]
+ok: [rpikube02]
+
+TASK [roles/microk8s-remove : Remove microk8s] *********************************
+changed: [rpikube01]
+changed: [rpikube00]
+changed: [rpikube02]
+
+TASK [roles/microk8s-remove : Delete microk8s group] ***************************
+changed: [rpikube00]
+changed: [rpikube01]
+changed: [rpikube02]
+
+PLAY RECAP *********************************************************************
+rpikube00                  : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube01                  : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube02                  : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for i in {0..1}
++ ansible-playbook -i hosts/rpi-kube.yml k3s-deploy.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube01]
+ok: [rpikube02]
+ok: [rpikube00]
+
+TASK [roles/k3s-dependencies : Install linux-modules-extra-raspi] **************
+ok: [rpikube01]
+ok: [rpikube00]
+ok: [rpikube02]
+
+TASK [roles/k3s-dependencies : Install curl] ***********************************
+ok: [rpikube00]
+ok: [rpikube01]
+ok: [rpikube02]
+
+PLAY [server] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube00]
+
+TASK [roles/k3s-install-server : include_tasks] ********************************
+included: /home/nuvious/Ansible/roles/k3s-install-server/tasks/install_k3s.yml for rpikube00
+
+TASK [roles/k3s-install-server : Check if k3s is installed] ********************
+ok: [rpikube00]
+
+TASK [roles/k3s-install-server : Install k3s server] ***************************
+[WARNING]: Consider using the get_url or uri module rather than running 'curl'.
+If you need to use command because get_url or uri is insufficient you can add
+'warn: false' to this command task or set 'command_warnings=False' in
+ansible.cfg to get rid of this message.
+changed: [rpikube00]
+
+TASK [roles/k3s-install-server : include_tasks] ********************************
+included: /home/nuvious/Ansible/roles/k3s-install-server/tasks/get_token.yml for rpikube00
+
+TASK [roles/k3s-install-server : Getting join command from the master node…] ***
+changed: [rpikube00]
+
+TASK [roles/k3s-install-server : Setting join command…] ************************
+ok: [rpikube00]
+
+PLAY [agent] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube01]
+ok: [rpikube02]
+
+TASK [roles/k3s-install-agent : include_tasks] *********************************
+included: /home/nuvious/Ansible/roles/k3s-install-agent/tasks/install_k3s.yml for rpikube01, rpikube02
+
+TASK [roles/k3s-install-agent : Check if k3s is installed] *********************
+ok: [rpikube01]
+ok: [rpikube02]
+
+TASK [roles/k3s-install-agent : Install k3s and join server] *******************
+changed: [rpikube01]
+changed: [rpikube02]
+
+PLAY [server] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube00]
+
+TASK [roles/k3s-gen-kube-config : Get admin token] *****************************
+changed: [rpikube00]
+
+TASK [roles/k3s-gen-kube-config : Output configuration] ************************
+ok: [rpikube00] => {
+    "msg": "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data:  REDACTED    client-key-data: REDACTED"
+}
+
+TASK [roles/k3s-gen-kube-config : Write variable to file] **********************
+changed: [rpikube00]
+
+PLAY RECAP *********************************************************************
+rpikube00                  : ok=14   changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube01                  : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube02                  : ok=7    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ sudo bash -c 'mv /root/k3s-config  /home/nuvious/.kube/config && chown nuvious:nuvious /home/nuvious/.kube/config'
++ sleep 5m
++ set +e
++ success=1
++ for k in {0..10}
++ kubectl get nodes
+NAME        STATUS   ROLES                  AGE     VERSION
+rpikube00   Ready    control-plane,master   5m46s   v1.26.3+k3s1
+rpikube01   Ready    <none>                 5m11s   v1.26.3+k3s1
+rpikube02   Ready    <none>                 5m9s    v1.26.3+k3s1
++ success=0
++ break
++ set -e
++ test 0 -eq 0
++ ansible-playbook -i hosts/rpi-kube.yml k3s-remove.yml
+
+PLAY [server] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube00]
+
+TASK [roles/k3s-remove-server : Check if k3s is installed] *********************
+ok: [rpikube00]
+
+TASK [roles/k3s-remove-server : Stop k3s] **************************************
+changed: [rpikube00]
+
+TASK [roles/k3s-remove-server : Remove k3s (server)] ***************************
+changed: [rpikube00]
+
+TASK [roles/k3s-remove-server : Remove linux-modules-extra-raspi] **************
+changed: [rpikube00]
+
+PLAY [agent] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [rpikube02]
+ok: [rpikube01]
+
+TASK [roles/k3s-remove-agent : Check if k3s is installed] **********************
+ok: [rpikube01]
+ok: [rpikube02]
+
+TASK [roles/k3s-remove-agent : Stop k3s] ***************************************
+changed: [rpikube02]
+changed: [rpikube01]
+
+TASK [roles/k3s-remove-agent : Remove k3s (worker)] ****************************
+changed: [rpikube02]
+changed: [rpikube01]
+
+TASK [roles/k3s-remove-agent : Remove linux-modules-extra-raspi] ***************
+changed: [rpikube01]
+changed: [rpikube02]
+
+PLAY RECAP *********************************************************************
+rpikube00                  : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube01                  : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+rpikube02                  : ok=5    changed=3    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for j in {0..2}
++ inventory=hosts/rpi-kube-tpi2.yml
++ post_install_delay=15m
++ for i in {0..1}
++ ansible-playbook -i hosts/rpi-kube-tpi2.yml microk8s-deploy.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[DEPRECATION WARNING]: Distribution debian 11 on host tpi20 should use 
+/usr/bin/python3, but is using /usr/bin/python for backward compatibility with 
+prior Ansible releases. A future Ansible release will default to using the 
+discovered platform python for this host. See https://docs.ansible.com/ansible/
+2.10/reference_appendices/interpreter_discovery.html for more information. This
+ feature will be removed in version 2.12. Deprecation warnings can be disabled 
+by setting deprecation_warnings=False in ansible.cfg.
+ok: [tpi20]
+ok: [tpi22]
+ok: [tpi21]
+ok: [tpi23]
+
+TASK [Import common variables] *************************************************
+ok: [tpi20]
+ok: [tpi21]
+ok: [tpi22]
+ok: [tpi23]
+
+TASK [roles/microk8s-dependencies : Install linux-modules-extra-raspi] *********
+skipping: [tpi20]
+skipping: [tpi21]
+skipping: [tpi22]
+skipping: [tpi23]
+
+TASK [roles/microk8s-dependencies : Install snapd] *****************************
+ok: [tpi20]
+ok: [tpi21]
+ok: [tpi23]
+ok: [tpi22]
+
+TASK [roles/microk8s-dependencies : Refreshing snap core] **********************
+skipping: [tpi20]
+skipping: [tpi21]
+skipping: [tpi22]
+skipping: [tpi23]
+
+TASK [roles/microk8s-install : Install microk8s with snap] *********************
+changed: [tpi20]
+changed: [tpi21]
+changed: [tpi23]
+changed: [tpi22]
+
+TASK [roles/microk8s-install : Add user to microk8s group] *********************
+changed: [tpi20]
+changed: [tpi22]
+changed: [tpi21]
+changed: [tpi23]
+
+PLAY [control] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [tpi20]
+
+TASK [roles/microk8s-control : Getting join command from the master node…] *****
+changed: [tpi20]
+
+TASK [roles/microk8s-control : Setting join command…] **************************
+ok: [tpi20]
+
+PLAY [worker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [tpi21]
+ok: [tpi23]
+ok: [tpi22]
+
+TASK [roles/microk8s-worker : Joining to the cluster] **************************
+changed: [tpi23]
+changed: [tpi21]
+changed: [tpi22]
+
+PLAY [control] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [tpi20]
+
+TASK [roles/microk8s-gen-kube-config : Get admin token] ************************
+changed: [tpi20]
+
+TASK [roles/microk8s-gen-kube-config : Output configuration] *******************
+ok: [tpi20] => {
+    "msg": "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data:  REDACTED    token: REDACTED"
+}
+
+TASK [roles/microk8s-gen-kube-config : Write variable to file] *****************
+changed: [tpi20]
+
+TASK [roles/microk8s-post-install : Enable dns] ********************************
+FAILED - RETRYING: Enable dns (10 retries left).
+FAILED - RETRYING: Enable dns (9 retries left).
+FAILED - RETRYING: Enable dns (8 retries left).
+FAILED - RETRYING: Enable dns (7 retries left).
+FAILED - RETRYING: Enable dns (6 retries left).
+FAILED - RETRYING: Enable dns (5 retries left).
+changed: [tpi20]
+
+TASK [roles/microk8s-post-install : Enable ha-cluster] *************************
+changed: [tpi20]
+
+TASK [roles/microk8s-post-install : Enable metrics-server] *********************
+changed: [tpi20]
+
+PLAY RECAP *********************************************************************
+tpi20                      : ok=15   changed=8    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+tpi21                      : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+tpi22                      : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+tpi23                      : ok=7    changed=3    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
++ sudo bash -c 'mv /root/k8s-config  /home/nuvious/.kube/config && chown nuvious:nuvious /home/nuvious/.kube/config'
++ sleep 15m
++ set +e
++ success=1
++ for k in {0..10}
++ kubectl get nodes
+E0421 00:06:23.275175  591687 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:16443/api?timeout=32s": dial tcp 192.168.1.70:16443: connect: connection refused
+E0421 00:06:23.277243  591687 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:16443/api?timeout=32s": dial tcp 192.168.1.70:16443: connect: connection refused
+E0421 00:06:23.278080  591687 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:16443/api?timeout=32s": dial tcp 192.168.1.70:16443: connect: connection refused
+E0421 00:06:23.279913  591687 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:16443/api?timeout=32s": dial tcp 192.168.1.70:16443: connect: connection refused
+E0421 00:06:23.281695  591687 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:16443/api?timeout=32s": dial tcp 192.168.1.70:16443: connect: connection refused
+The connection to the server 192.168.1.70:16443 was refused - did you specify the right host or port?
++ sleep 15m
++ for k in {0..10}
++ kubectl get nodes
+E0421 00:21:23.462766  593040 memcache.go:287] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0421 00:21:23.621056  593040 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0421 00:21:23.649786  593040 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+E0421 00:21:23.690090  593040 memcache.go:121] couldn't get resource list for metrics.k8s.io/v1beta1: the server is currently unable to handle the request
+NAME                  STATUS     ROLES    AGE   VERSION
+tpi22.local   NotReady   <none>   54m   v1.26.3
+tpi21.local   NotReady   <none>   19m   v1.26.3
+tpi20.local   Ready      <none>   32m   v1.26.3
++ success=0
++ break
++ set -e
++ test 0 -eq 0
++ ansible-playbook -i hosts/rpi-kube-tpi2.yml microk8s-remove.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[DEPRECATION WARNING]: Distribution debian 11 on host tpi20 should use 
+/usr/bin/python3, but is using /usr/bin/python for backward compatibility with 
+prior Ansible releases. A future Ansible release will default to using the 
+discovered platform python for this host. See https://docs.ansible.com/ansible/
+2.10/reference_appendices/interpreter_discovery.html for more information. This
+ feature will be removed in version 2.12. Deprecation warnings can be disabled 
+by setting deprecation_warnings=False in ansible.cfg.
+ok: [tpi20]
+ok: [tpi23]
+ok: [tpi22]
+ok: [tpi21]
+
+TASK [roles/microk8s-remove : Remove microk8s] *********************************
+changed: [tpi20]
+changed: [tpi22]
+changed: [tpi23]
+changed: [tpi21]
+
+TASK [roles/microk8s-remove : Delete microk8s group] ***************************
+changed: [tpi20]
+changed: [tpi23]
+changed: [tpi22]
+changed: [tpi21]
+
+PLAY RECAP *********************************************************************
+tpi20                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+tpi21                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+tpi22                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+tpi23                      : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ for i in {0..1}
++ ansible-playbook -i hosts/rpi-kube-tpi2.yml k3s-deploy.yml
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[DEPRECATION WARNING]: Distribution debian 11 on host tpi20 should use 
+/usr/bin/python3, but is using /usr/bin/python for backward compatibility with 
+prior Ansible releases. A future Ansible release will default to using the 
+discovered platform python for this host. See https://docs.ansible.com/ansible/
+2.10/reference_appendices/interpreter_discovery.html for more information. This
+ feature will be removed in version 2.12. Deprecation warnings can be disabled 
+by setting deprecation_warnings=False in ansible.cfg.
+ok: [tpi20]
+ok: [tpi23]
+ok: [tpi22]
+ok: [tpi21]
+
+TASK [roles/k3s-dependencies : Install linux-modules-extra-raspi] **************
+skipping: [tpi20]
+skipping: [tpi21]
+skipping: [tpi22]
+skipping: [tpi23]
+
+TASK [roles/k3s-dependencies : Install curl] ***********************************
+ok: [tpi20]
+ok: [tpi23]
+ok: [tpi22]
+ok: [tpi21]
+
+PLAY [server] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [tpi20]
+
+TASK [roles/k3s-install-server : include_tasks] ********************************
+included: /home/nuvious/Ansible/roles/k3s-install-server/tasks/install_k3s.yml for tpi20
+
+TASK [roles/k3s-install-server : Check if k3s is installed] ********************
+ok: [tpi20]
+
+TASK [roles/k3s-install-server : Install k3s server] ***************************
+[WARNING]: Consider using the get_url or uri module rather than running 'curl'.
+If you need to use command because get_url or uri is insufficient you can add
+'warn: false' to this command task or set 'command_warnings=False' in
+ansible.cfg to get rid of this message.
+changed: [tpi20]
+
+TASK [roles/k3s-install-server : include_tasks] ********************************
+included: /home/nuvious/Ansible/roles/k3s-install-server/tasks/get_token.yml for tpi20
+
+TASK [roles/k3s-install-server : Getting join command from the master node…] ***
+changed: [tpi20]
+
+TASK [roles/k3s-install-server : Setting join command…] ************************
+ok: [tpi20]
+
+PLAY [agent] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [tpi21]
+ok: [tpi22]
+ok: [tpi23]
+
+TASK [roles/k3s-install-agent : include_tasks] *********************************
+included: /home/nuvious/Ansible/roles/k3s-install-agent/tasks/install_k3s.yml for tpi21, tpi22, tpi23
+
+TASK [roles/k3s-install-agent : Check if k3s is installed] *********************
+ok: [tpi22]
+ok: [tpi21]
+ok: [tpi23]
+
+TASK [roles/k3s-install-agent : Install k3s and join server] *******************
+skipping: [tpi21]
+skipping: [tpi22]
+skipping: [tpi23]
+
+PLAY [server] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [tpi20]
+
+TASK [roles/k3s-gen-kube-config : Get admin token] *****************************
+changed: [tpi20]
+
+TASK [roles/k3s-gen-kube-config : Output configuration] ************************
+ok: [tpi20] => {
+    "msg": "apiVersion: v1\nclusters:\n- cluster:\n    certificate-authority-data:  REDACTED    client-key-data: REDACTED"
+}
+
+TASK [roles/k3s-gen-kube-config : Write variable to file] **********************
+changed: [tpi20]
+
+PLAY RECAP *********************************************************************
+tpi20                      : ok=13   changed=4    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+tpi21                      : ok=5    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+tpi22                      : ok=5    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+tpi23                      : ok=5    changed=0    unreachable=0    failed=0    skipped=2    rescued=0    ignored=0   
+
++ sudo bash -c 'mv /root/k3s-config  /home/nuvious/.kube/config && chown nuvious:nuvious /home/nuvious/.kube/config'
++ sleep 15m
++ set +e
++ success=1
++ for k in {0..10}
++ kubectl get nodes
+E0421 00:39:31.717392  595101 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:6443/api?timeout=32s": dial tcp 192.168.1.70:6443: connect: connection refused
+E0421 00:39:31.718384  595101 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:6443/api?timeout=32s": dial tcp 192.168.1.70:6443: connect: connection refused
+E0421 00:39:31.720423  595101 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:6443/api?timeout=32s": dial tcp 192.168.1.70:6443: connect: connection refused
+E0421 00:39:31.722261  595101 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:6443/api?timeout=32s": dial tcp 192.168.1.70:6443: connect: connection refused
+E0421 00:39:31.724070  595101 memcache.go:265] couldn't get current server API group list: Get "https://192.168.1.70:6443/api?timeout=32s": dial tcp 192.168.1.70:6443: connect: connection refused
+The connection to the server 192.168.1.70:6443 was refused - did you specify the right host or port?
++ sleep 15m
++ for k in {0..10}
++ kubectl get nodes
+NAME                  STATUS   ROLES                  AGE   VERSION
+tpi20.local   Ready    control-plane,master   30m   v1.26.3+k3s1
++ success=0
++ break
++ set -e
++ test 0 -eq 0
++ ansible-playbook -i hosts/rpi-kube-tpi2.yml k3s-remove.yml
+
+PLAY [server] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+[DEPRECATION WARNING]: Distribution debian 11 on host tpi20 should use 
+/usr/bin/python3, but is using /usr/bin/python for backward compatibility with 
+prior Ansible releases. A future Ansible release will default to using the 
+discovered platform python for this host. See https://docs.ansible.com/ansible/
+2.10/reference_appendices/interpreter_discovery.html for more information. This
+ feature will be removed in version 2.12. Deprecation warnings can be disabled 
+by setting deprecation_warnings=False in ansible.cfg.
+ok: [tpi20]
+
+TASK [roles/k3s-remove-server : Check if k3s is installed] *********************
+ok: [tpi20]
+
+TASK [roles/k3s-remove-server : Stop k3s] **************************************
+changed: [tpi20]
+
+TASK [roles/k3s-remove-server : Remove k3s (server)] ***************************
+changed: [tpi20]
+
+TASK [roles/k3s-remove-server : Remove linux-modules-extra-raspi] **************
+skipping: [tpi20]
+
+PLAY [agent] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [tpi23]
+ok: [tpi22]
+ok: [tpi21]
+
+TASK [roles/k3s-remove-agent : Check if k3s is installed] **********************
+ok: [tpi21]
+ok: [tpi22]
+ok: [tpi23]
+
+TASK [roles/k3s-remove-agent : Stop k3s] ***************************************
+changed: [tpi23]
+changed: [tpi21]
+changed: [tpi22]
+
+TASK [roles/k3s-remove-agent : Remove k3s (worker)] ****************************
+changed: [tpi21]
+changed: [tpi22]
+changed: [tpi23]
+
+TASK [roles/k3s-remove-agent : Remove linux-modules-extra-raspi] ***************
+skipping: [tpi21]
+skipping: [tpi22]
+skipping: [tpi23]
+
+PLAY RECAP *********************************************************************
+tpi20                      : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+tpi21                      : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+tpi22                      : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+tpi23                      : ok=4    changed=2    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+

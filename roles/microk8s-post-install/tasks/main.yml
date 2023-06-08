@@ -1,14 +1,26 @@
 - name: Enable dns
   become: true
   become_user: root
+  retries: 10
+  delay: 300
+  register: result
+  until: "result is not failed"
   shell: /snap/bin/microk8s enable dns
 - name: Enable ha-cluster
   become: true
   become_user: root
+  retries: 10
+  delay: 300
+  register: result
+  until: "result is not failed"
   shell: /snap/bin/microk8s enable ha-cluster
 - name: Enable metrics-server
   become: true
   become_user: root
+  retries: 10
+  delay: 300
+  register: result
+  until: "result is not failed"
   shell: /snap/bin/microk8s enable metrics-server
 # - name: Enable dashboard
 #   become: true
