@@ -1,8 +1,37 @@
 ---
-- hosts: "{{ hosts | default('all') }}"
+- hosts: all:!exclude
+  module_defaults:
+    apt:
+      force_apt_get: yes
   become: true
   become_user: root
   tasks:
-    - name: Update all debian server
-      ansible.builtin.include_tasks:
-        file: roles/debian/tasks/routine_update.yml
+    - block:
+      - name: determine hosts that are up
+        wait_for_connection:
+          timeout: 10
+      rescue:
+        - name: create host group for failed host
+          group_by:
+            key: "failed_hosts"
+    - name: Update apt repo and cache on all Debian/Ubuntu boxes
+      when: ansible_os_family == 'Debian'
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+    - name: Pause for 1 minute to allow release of dpkg lock
+      ansible.builtin.pause:
+        minutes: 1
+    - name: Upgrade all packages on debian servers
+      when: ansible_os_family == 'Debian'
+      apt: upgrade=dist force_apt_get=yes
+    - name: Check if a reboot is needed on all servers
+      register: reboot_required_file
+      stat: path=/var/run/reboot-required get_md5=no
+    - name: Reboot the box if kernel updated
+      reboot:
+        msg: "Reboot initiated by Ansible for kernel updates"
+        connect_timeout: 5
+        reboot_timeout: 90
+        pre_reboot_delay: 0
+        post_reboot_delay: 90
+        test_command: uptime
+      when: reboot_required_file.stat.exists
