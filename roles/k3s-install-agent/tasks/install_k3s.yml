@@ -8,6 +8,7 @@
   become_user: root
   retries: 10
   delay: 60
+  throttle: 1
   register: result
   until: "result is not failed"
   shell: "{{ hostvars[groups['server'][0]]['join_command'] }}"

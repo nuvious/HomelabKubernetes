@@ -24,5 +24,6 @@
 - hosts: control
   become: true
   roles:
+    - role: roles/microk8s-wait-ready
     - role: roles/microk8s-gen-kube-config
     - role: roles/microk8s-post-install

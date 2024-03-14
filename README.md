@@ -113,7 +113,7 @@ agent:
 ### Deploy
 
 ```bash
-ansible-playbook -i hosts/example.yml k8s-deploy.yml
+ansible-playbook -i hosts/example.yml microk8s-deploy.yml
 mkdir -p ~/.kube
 mv ~/.kube/config ~/.kube/config_backup # If you have an existing kube config
 sudo bash -c "mv /root/k8s-config $HOME/.kube/config && chown $USER:$USER $HOME/.kube/config"
@@ -132,7 +132,7 @@ kube01.bearden.local   Ready    <none>   3m3s    v1.26.0
 ### Remove
 
 ```bash
-ansible-playbook -i hosts/example.yml k8s-remove.yml
+ansible-playbook -i hosts/example.yml microk8s-remove.yml
 ```
 
 ## Other Useful Playbooks Included
@@ -150,6 +150,12 @@ ansible-playbook -i hosts/hosts_file.yml --extra-vars "hosts=creality" site_upda
 ```
 
 ## Misc Notes for Contributors
+
+### Suppress Warnings
+
+```bash
+export ANSIBLE_PYTHON_INTERPRETER=auto_silent
+```
 
 ### File Structure
 

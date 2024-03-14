@@ -1,0 +1,5 @@
+---
+- name: Wait for all nodes to be ready
+  become: true
+  shell: /snap/bin/microk8s.kubectl wait --for=condition=Ready nodes --all --timeout=600s
+  register: nodes_ready
