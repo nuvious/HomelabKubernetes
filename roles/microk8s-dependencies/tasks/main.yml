@@ -15,9 +15,11 @@
     name: snapd
     state: present
   register: result
+- name: Install snap core
+  become: true
+  become_user: root
+  shell: snap install core
 - name: Refreshing snap core
   become: true
   become_user: root
   shell: snap refresh core --candidate
-  when:
-  - result.changed

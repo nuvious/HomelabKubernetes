@@ -1,0 +1,8 @@
+---
+- name: Replace sources.list file on remote hosts based on distribution
+  hosts: all
+  become: yes
+  tasks:
+    - name: Gather facts about the host
+      ansible.builtin.setup:
+  

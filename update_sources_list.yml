@@ -1,0 +1,39 @@
+---
+- name: Replace sources.list file on remote hosts based on distribution
+  hosts: all
+  become: yes
+  tasks:
+    - name: Gather facts about the host
+      ansible.builtin.setup:
+
+    # - name: Write facts to a JSON file on the local filesystem
+    #   local_action:
+    #     module: copy
+    #     content: "{{ ansible_facts | to_nice_json }}"
+    #     dest: "{{ inventory_hostname }}-facts.json"
+    #     mode: '0644'
+
+    - name: Determine which sources.list file to use
+      set_fact:
+        sources_file: |
+          {% if 'Debian' in ansible_facts['distribution'] %}
+            /home/nuvious/Ansible/assets/apt/sources-debian.list
+          {% elif 'Ubuntu' in ansible_facts['distribution'] and 'jammy' in ansible_facts['distribution_release'] %}
+            /home/nuvious/Ansible/assets/apt/source-jammy.list
+          {% else %}
+            {{ None }}
+          {% endif %}
+
+    - name: Print return information from the previous task
+      ansible.builtin.debug:
+        var: sources_file.strip()
+
+    - name: Copy the appropriate sources.list file to remote /etc/apt/sources.list
+      ansible.builtin.copy:
+        src: "{{ sources_file.strip() }}"
+        dest: /etc/apt/sources.list
+        owner: root
+        group: root
+        mode: '0644'
+      when: sources_file.strip() != ""
+
